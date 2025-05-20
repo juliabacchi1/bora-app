@@ -92,7 +92,7 @@ const ListDetails = () => {
             {itemsToTake.length === 0 ? (
               <p className="italic text-gray-500">Nenhum item selecionado.</p>
             ) : (
-              <div className="flex flex-wrap gap-3">
+              <div className="py-1 grid grid-cols-3  gap-1">
                 {itemsToTake.map((item) => (
                   <div
                     key={item.id}
@@ -106,7 +106,7 @@ const ListDetails = () => {
                         className="w-10 h-10 object-contain"
                       />
                     )}
-                    <span className="text-base line-through">{item.name}</span>
+                    <span className="text-base">{item.name}</span>
                   </div>
                 ))}
               </div>

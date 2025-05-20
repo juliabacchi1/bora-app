@@ -10,10 +10,10 @@ const CategorySection = ({
   toggleItem,
 }) => {
   return (
-    <section className="mb-4 border border-[#cfd8e3] rounded-lg overflow-hidden">
+    <section className="mb-1 rounded-lg overflow-hidden">
       <header
         onClick={() => toggleCategory(category)}
-        className="cursor-pointer bg-[#415582] text-white px-4 py-2 rounded-t-lg flex justify-between items-center select-none"
+        className="cursor-pointer bg-[white] px-4 py-3 rounded-t-lg flex justify-between items-center select-none"
       >
         <span className="font-medium">{category}</span>
         {isOpen ? (
@@ -24,7 +24,7 @@ const CategorySection = ({
       </header>
 
       {isOpen && (
-        <div className="py-1 grid grid-cols-3 gap-3">
+        <div className="py-1 grid grid-cols-3 gap-1">
           {items.map((item) => (
             <ItemCard key={item.id} item={item} toggleItem={toggleItem} />
           ))}
