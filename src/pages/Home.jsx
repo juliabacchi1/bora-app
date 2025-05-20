@@ -71,8 +71,8 @@ const Home = () => {
             key={item}
             className="bg-white p-4 rounded-xl flex flex-col items-center"
           >
-            <p className="text-sm font-medium">{item}</p>
-            <div className="text-2xl text-[#415582] mt-2">
+            <p className="text-sm font-semibold">{item}</p>
+            <div className="text-2xl text-[#415582] mt-14">
               <PlusCircleSolid width={20} height={20} />
             </div>
           </div>
