@@ -24,7 +24,7 @@ const CategorySection = ({
       </header>
 
       {isOpen && (
-        <div className="bg-white p-4 flex flex-col gap-2">
+        <div className="py-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {items.map((item) => (
             <ItemCard key={item.id} item={item} toggleItem={toggleItem} />
           ))}

@@ -3,8 +3,8 @@ const ItemCard = ({ item, toggleItem }) => {
     <label
       className={`flex items-center gap-3 p-3 mb-3 rounded-lg border cursor-pointer transition-all ${
         item.checked
-          ? "bg-[#e6f4ea] border-green-400"
-          : "bg-white border-gray-300"
+          ? "bg-[#e85252] border-red-600 text-white line-through"
+          : "bg-[#aac8fa] border-blue-200 text-black"
       }`}
     >
       <input
@@ -20,13 +20,7 @@ const ItemCard = ({ item, toggleItem }) => {
           className="w-10 h-10 object-contain"
         />
       )}
-      <span
-        className={`text-base ${
-          item.checked ? "line-through text-gray-500" : ""
-        }`}
-      >
-        {item.name}
-      </span>
+      <span className="text-base">{item.name}</span>
     </label>
   );
 };

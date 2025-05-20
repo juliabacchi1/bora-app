@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import CategorySection from "../components/CategorySection";
-import ItemCard from "../components/ItemCard";
 import { mockItems } from "../data/mockItems";
 import { mockLists } from "../data/mockLists";
 import {
@@ -11,6 +10,7 @@ import {
   ArrowLeftCircle,
   BellNotificationSolid,
   MoreHorizCircle,
+  FilterListCircleSolid,
 } from "iconoir-react";
 
 const ListDetails = () => {
@@ -18,8 +18,8 @@ const ListDetails = () => {
   const navigate = useNavigate();
 
   const [selectedItems, setSelectedItems] = useState([]);
-  const [openCategories, setOpenCategories] = useState({});
-  const [openUsedRecently, setOpenUsedRecently] = useState(true);
+  const [openCategories, setOpenCategories] = useState(false);
+  const [openUsedRecently, setOpenUsedRecently] = useState(false);
 
   const list = mockLists.find((l) => l.id === Number(id));
   const listName = list ? list.title : "Lista não encontrada";
@@ -86,9 +86,9 @@ const ListDetails = () => {
         <>
           {/* Itens para levar */}
           <section className="mb-6">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-end gap-2 mb-2">
               <h2 className="text-lg font-semibold">Itens para levar</h2>
-              <MoreHorizCircle width={20} height={20} />
+              <FilterListCircleSolid width={20} height={20} />
             </div>
             {itemsToTake.length === 0 ? (
               <p className="italic text-gray-500">Nenhum item selecionado.</p>
