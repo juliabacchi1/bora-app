@@ -1,10 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const ListCard = ({ title, itensCount, onClick }) => {
   return (
     <div
-      onClick={() => navigate(`/lista/${id}`)}
+      onClick={onClick}
       className="bg-white p-4 rounded-xl shadow-sm border-2 border-[#415582] mb-4 cursor-pointer"
     >
       <p className="text-xl font-bold">› {title}</p>

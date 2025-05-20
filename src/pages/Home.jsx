@@ -1,35 +1,52 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import ListCard from "../components/ListCard";
 import { mockLists } from "../data/mockLists";
 
+import {
+  PlusCircleSolid,
+  PlusCircle,
+  MoreHorizCircle,
+  UserCircle,
+  BellNotificationSolid,
+} from "iconoir-react";
+
 const Home = () => {
-  // Aqui você pode ter o estado que guarda as listas
+  const navigate = useNavigate();
+
+  // estado que guarda as listas
   const [listas, setListas] = useState([
     { id: 1, title: "Urubici", itensCount: 3 },
-    // pode começar com uma lista inicial ou vazio []
+    // começa com uma lista inicial ou vazio []
   ]);
 
   return (
     <main className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Bora!</h1>
-
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold mb-4">Bora!</h1>
+        <div className="flex items-center gap-2">
+          <BellNotificationSolid width={20} height={20} />
+          <MoreHorizCircle width={20} height={20} />
+        </div>
+      </div>
       <h2 className="text-lg font-semibold mb-2">Minhas listas</h2>
 
-      {/* Aqui é onde você renderiza as listas dinâmicas */}
+      {/* renderiza as listas dinâmicas */}
       {listas.map((lista) => (
         <ListCard
           key={lista.id}
           id={lista.id}
           title={lista.title}
           itensCount={lista.itensCount}
-          onClick={() => console.log("Abrir detalhes da lista", lista.id)}
+          onClick={() => navigate(`/lista/${lista.id}`)}
         />
       ))}
 
-      {/* Botão para criar nova lista */}
+      {/* criar nova lista */}
       <button
         onClick={() => {
-          // Aqui vai lógica para criar uma nova lista
+          // lógica para criar uma nova lista
           const novaLista = {
             id: listas.length + 1,
             title: `Lista ${listas.length + 1}`,

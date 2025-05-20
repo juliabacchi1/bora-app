@@ -9,7 +9,7 @@ const ListDetails = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [openCategories, setOpenCategories] = useState({});
 
-  const list = mockLists.find((l) => l.id === id);
+  const list = mockLists.find((l) => l.id === Number(id));
   const listName = list ? list.title : "Lista não encontrada";
 
   const categories = [...new Set(mockItems.map((item) => item.category))];
@@ -35,7 +35,7 @@ const ListDetails = () => {
         onClick={() => navigate("/")}
         className="mb-4 text-blue-600 hover:underline"
       >
-        ← Voltar para Home
+        ← Listas
       </button>
 
       <h1 className="text-2xl font-bold mb-6">{listName}</h1>
