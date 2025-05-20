@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import RecentlyUsed from "../components/RecentlyUsed";
 import CategorySection from "../components/CategorySection";
 import { mockItems } from "../data/mockItems";
 import { mockLists } from "../data/mockLists";
 import {
-  Eye,
-  EyeClosed,
   ArrowLeftCircle,
   BellNotificationSolid,
   MoreHorizCircle,
@@ -120,50 +119,12 @@ const ListDetails = () => {
           </section>
 
           {/* Usados recentemente */}
-          <section className="mb-6 border border-gray-300 rounded-lg overflow-hidden">
-            <header
-              className="flex items-center justify-between bg-[#aac8fa] px-4 py-2 cursor-pointer select-none"
-              onClick={() => setOpenUsedRecently((o) => !o)}
-            >
-              <h2 className="text-lg font-semibold">Usados recentemente</h2>
-              {openUsedRecently ? (
-                <Eye className="w-5 h-5" />
-              ) : (
-                <EyeClosed className="w-5 h-5" />
-              )}
-            </header>
-            {openUsedRecently && (
-              <div className="py-1 grid grid-cols-3 gap-3">
-                {usedRecently.map((item) => (
-                  <label
-                    key={item.id}
-                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
-                      item.checked
-                        ? "bg-[#e85252] border-red-600 text-white line-through"
-                        : "bg-[#aac8fa] border-transparent text-black"
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={item.checked}
-                      onChange={() => toggleItemSelection(item.id)}
-                      className={`accent-${
-                        item.checked ? "white" : "green-600"
-                      } w-5 h-5`}
-                    />
-                    {item.imageUrl && (
-                      <img
-                        src={item.imageUrl}
-                        alt={item.name}
-                        className="w-10 h-10 object-contain"
-                      />
-                    )}
-                    <span>{item.name}</span>
-                  </label>
-                ))}
-              </div>
-            )}
-          </section>
+          <RecentlyUsed
+            items={usedRecently}
+            isOpen={openUsedRecently}
+            toggleOpen={() => setOpenUsedRecently((o) => !o)}
+            toggleItem={toggleItemSelection}
+          />
 
           {/* Categorias */}
           {categories.map((category) => {
