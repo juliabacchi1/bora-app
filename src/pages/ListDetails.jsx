@@ -133,7 +133,7 @@ const ListDetails = () => {
               )}
             </header>
             {openUsedRecently && (
-              <div className="p-4 flex flex-col gap-2 bg-[#aac8fa] max-h-[300px] overflow-auto">
+              <div className="py-1 grid grid-cols-3 gap-3">
                 {usedRecently.map((item) => (
                   <label
                     key={item.id}
