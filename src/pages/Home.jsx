@@ -23,8 +23,8 @@ const Home = () => {
 
   return (
     <main className="p-4">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold mb-4">Bora!</h1>
+      <div className="flex justify-between items-center my-4">
+        <h1 className="text-2xl font-bold">Bora!</h1>
         <div className="flex items-center gap-2">
           <BellNotificationSolid width={20} height={20} />
           <MoreHorizCircle width={20} height={20} />
@@ -56,7 +56,10 @@ const Home = () => {
         }}
         className="w-full bg-white text-[#415582] font-semibold py-2 px-4 rounded-xl border mt-4 flex items-center justify-center gap-2"
       >
-        <span className="text-xl">＋</span> Nova lista
+        <span className="text-xl">
+          <PlusCircleSolid width={20} height={20} />
+        </span>{" "}
+        Nova lista
       </button>
 
       {/* Recomendação de listas (pode deixar fixo ou dinâmico) */}
@@ -71,7 +74,9 @@ const Home = () => {
             className="bg-white p-4 rounded-xl flex flex-col items-center"
           >
             <p className="text-sm font-medium">{item}</p>
-            <div className="text-2xl text-[#415582] mt-2">＋</div>
+            <div className="text-2xl text-[#415582] mt-2">
+              <PlusCircleSolid width={20} height={20} />
+            </div>
           </div>
         ))}
       </div>
