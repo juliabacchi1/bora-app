@@ -4,7 +4,7 @@ import ListDetails from "./pages/ListDetails";
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#e4e0df] flex justify-center">
+    <div className="min-h-screen bg-[#ffffff] flex justify-center">
       <div className="w-[390px] bg-[#e4e0df] min-h-screen shadow-xl">
         <Routes>
           <Route path="/" element={<Home />} />
