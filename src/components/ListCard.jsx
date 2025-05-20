@@ -1,4 +1,5 @@
 import React from "react";
+import { PlusCircle } from "iconoir-react";
 
 const ListCard = ({ title, itensCount, onClick }) => {
   return (
@@ -13,8 +14,8 @@ const ListCard = ({ title, itensCount, onClick }) => {
       <div className="flex gap-2 mt-2">
         <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
         <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
-        <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs font-bold">
-          +
+        <div className="w-6 h-6 flex items-center justify-center">
+          <PlusCircle />
         </div>
       </div>
     </div>

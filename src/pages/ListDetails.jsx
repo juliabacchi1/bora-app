@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import { mockItems } from "../data/mockItems";
 import { mockLists } from "../data/mockLists";
+import {
+  Eye,
+  EyeClosed,
+  ArrowLeftCircle,
+  BellNotificationSolid,
+  MoreHorizCircle,
+} from "iconoir-react";
 
 const ListDetails = () => {
   const { id } = useParams(); // recebe da URL
@@ -31,14 +39,29 @@ const ListDetails = () => {
 
   return (
     <main className="p-4">
-      <button
-        onClick={() => navigate("/")}
-        className="mb-4 text-blue-600 hover:underline"
-      >
-        ← Listas
-      </button>
+      <div className="flex justify-between items-center my-4">
+        <button
+          onClick={() => navigate("/")}
+          className="bg-white text-[#415582] font-semibold rounded-full py-2 px-4 flex items-center justify-center gap-2"
+        >
+          <span className="text-xl">
+            <ArrowLeftCircle className="w-5 h-5" />
+          </span>{" "}
+          Listas
+        </button>
+        <div className="flex items-center gap-2">
+          <BellNotificationSolid width={20} height={20} />
+          <MoreHorizCircle width={20} height={20} />
+        </div>
+      </div>
 
-      <h1 className="text-2xl font-bold mb-6">{listName}</h1>
+      <div className="flex justify-between items-center my-4">
+        <h1 className="text-2xl font-bold">{listName}</h1>
+        <div className="flex gap-2 mt-2">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
+        </div>
+      </div>
 
       {list ? (
         <>
@@ -56,7 +79,13 @@ const ListDetails = () => {
                 className="cursor-pointer bg-[#415582] text-white px-4 py-2 rounded-t-lg flex justify-between items-center select-none"
               >
                 <span>{category}</span>
-                <span>{openCategories[category] ? "−" : "+"}</span>
+                <span>
+                  {openCategories[category] ? (
+                    <Eye className="w-5 h-5" />
+                  ) : (
+                    <EyeClosed className="w-5 h-5" />
+                  )}
+                </span>
               </header>
 
               {openCategories[category] && (

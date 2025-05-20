@@ -6,9 +6,7 @@ import { mockLists } from "../data/mockLists";
 
 import {
   PlusCircleSolid,
-  PlusCircle,
   MoreHorizCircle,
-  UserCircle,
   BellNotificationSolid,
 } from "iconoir-react";
 
