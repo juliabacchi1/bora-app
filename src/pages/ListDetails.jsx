@@ -94,16 +94,11 @@ const ListDetails = () => {
             ) : (
               <div className="flex flex-wrap gap-3">
                 {itemsToTake.map((item) => (
-                  <label
+                  <div
                     key={item.id}
-                    className="flex items-center gap-2 p-3 rounded-lg cursor-pointer bg-[#e85252] text-white border border-red-600"
+                    onClick={() => toggleItemSelection(item.id)}
+                    className="flex items-center gap-2 p-3 rounded-lg cursor-pointer bg-[#e85252] text-white border border-red-600 select-none"
                   >
-                    <input
-                      type="checkbox"
-                      checked={true}
-                      onChange={() => toggleItemSelection(item.id)}
-                      className="accent-white w-5 h-5"
-                    />
                     {item.imageUrl && (
                       <img
                         src={item.imageUrl}
@@ -112,7 +107,7 @@ const ListDetails = () => {
                       />
                     )}
                     <span className="text-base line-through">{item.name}</span>
-                  </label>
+                  </div>
                 ))}
               </div>
             )}
