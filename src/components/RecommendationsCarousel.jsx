@@ -7,7 +7,7 @@ const RecommendationsCarousel = ({ lists, listas, setListas }) => {
 
   const handleAddRecommended = (item) => {
     const novaLista = {
-      id: listas.length + 1,
+      id: Date.now().toString(),
       title: item.title,
       itensCount: item.items.length,
       items: item.items,

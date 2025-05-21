@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ListCard from "../components/ListCard";
 import { recommendedLists } from "../data/recommendedLists";
 import RecommendationsCarousel from "../components/RecommendationsCarousel";
-import { mockLists } from "../data/mockLists";
 
 import {
   PlusCircleSolid,
@@ -19,15 +18,25 @@ const Home = () => {
   const urubici = recommendedLists.find((item) => item.id === "urubici");
 
   // Estado inicial com Urubici
-  const [listas, setListas] = useState([
-    {
-      id: 1,
-      title: urubici.title,
-      itensCount: urubici.items.length,
-      items: urubici.items,
-    },
-    // começa com uma lista inicial ou vazio []
-  ]);
+const [listas, setListas] = useState(() => {
+  const saved = localStorage.getItem("listas");
+  return saved
+    ? JSON.parse(saved)
+    : [
+        {
+          id: "urubici",
+          title: urubici.title,
+          itensCount: urubici.items.length,
+          items: urubici.items,
+        },
+      ];
+});
+
+
+  useEffect(() => {
+    localStorage.setItem("listas", JSON.stringify(listas));
+  }, [listas]);
+
 
   return (
     <main className="p-4">
@@ -55,12 +64,16 @@ const Home = () => {
       <button
         onClick={() => {
           const novaLista = {
-            id: listas.length + 1,
-            title: `Lista ${listas.length + 1}`,
+            id: Date.now().toString(),
+            title: "Nova Lista",
             itensCount: 0,
             items: [],
           };
-          setListas([...listas, novaLista]);
+          const novasListas = [...listas, novaLista];
+          localStorage.setItem("listas", JSON.stringify(novasListas)); // 🔴 salva todas
+          localStorage.setItem("selectedList", JSON.stringify(novaLista)); // opcional
+          setListas(novasListas);
+          navigate(`/lista/${novaLista.id}`);
         }}
         className="w-full bg-white text-[#415582] font-semibold py-2 px-4 rounded-xl border mt-4 flex items-center justify-center gap-2"
       >

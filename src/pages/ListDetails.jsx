@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { useListaById } from "../hooks/useListaById";
 import RecentlyUsed from "../components/RecentlyUsed";
 import CategorySection from "../components/CategorySection";
 import { mockItems } from "../data/mockItems";
-import { mockLists } from "../data/mockLists";
+
 import {
   ArrowLeftCircle,
   BellNotificationSolid,
@@ -15,13 +15,11 @@ import {
 const ListDetails = () => {
   const { id } = useParams(); // recebe da URL
   const navigate = useNavigate();
+  const { list, listId, listName } = useListaById(id);
 
   const [selectedItems, setSelectedItems] = useState([]);
   const [openCategories, setOpenCategories] = useState(false);
   const [openUsedRecently, setOpenUsedRecently] = useState(false);
-
-  const list = mockLists.find((l) => l.id === Number(id));
-  const listName = list ? list.title : "Lista não encontrada";
 
   // Todas categorias únicas
   const categories = [...new Set(mockItems.map((item) => item.category))];
@@ -84,15 +82,17 @@ const ListDetails = () => {
       {list ? (
         <>
           {/* Itens para levar */}
-          <section className="mb-6">
+          <section className="mb-1">
             <div className="flex items-center justify-end gap-2 mb-2">
               <h2 className="text-lg font-semibold">Itens para levar</h2>
               <FilterListCircleSolid width={20} height={20} />
             </div>
             {itemsToTake.length === 0 ? (
-              <p className="italic text-gray-500">Nenhum item selecionado.</p>
+              <p className="italic text-gray-500 py-2">
+                Selecione um item abaixo
+              </p>
             ) : (
-              <div className="py-1 grid grid-cols-3  gap-1">
+              <div className="py-1 grid grid-cols-3 gap-1">
                 {itemsToTake.map((item) => (
                   <div
                     key={item.id}
