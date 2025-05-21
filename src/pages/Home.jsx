@@ -15,9 +15,17 @@ import {
 const Home = () => {
   const navigate = useNavigate();
 
-  // estado que guarda as listas
+  // Pegando Urubici da recomendação
+  const urubici = recommendedLists.find((item) => item.id === "urubici");
+
+  // Estado inicial com Urubici
   const [listas, setListas] = useState([
-    { id: 1, title: "Urubici", itensCount: 3 },
+    {
+      id: 1,
+      title: urubici.title,
+      itensCount: urubici.items.length,
+      items: urubici.items,
+    },
     // começa com uma lista inicial ou vazio []
   ]);
 
@@ -46,11 +54,11 @@ const Home = () => {
       {/* criar nova lista */}
       <button
         onClick={() => {
-          // lógica para criar uma nova lista
           const novaLista = {
             id: listas.length + 1,
             title: `Lista ${listas.length + 1}`,
             itensCount: 0,
+            items: [],
           };
           setListas([...listas, novaLista]);
         }}
@@ -62,11 +70,15 @@ const Home = () => {
         Nova lista
       </button>
 
-      {/* Recomendação de listas (pode deixar fixo ou dinâmico) */}
+      {/* recomendação de listas */}
       <h2 className="text-lg font-semibold mt-6 mb-2">
         Recomendações de listas
       </h2>
-      <RecommendationsCarousel lists={recommendedLists} />
+      <RecommendationsCarousel
+        lists={recommendedLists}
+        listas={listas}
+        setListas={setListas}
+      />
     </main>
   );
 };
