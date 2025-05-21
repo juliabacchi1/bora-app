@@ -44,12 +44,28 @@ const ListDetails = () => {
   };
 
   const toggleItemSelection = (itemId) => {
-    setSelectedItems((prev) =>
-      prev.includes(itemId)
-        ? prev.filter((id) => id !== itemId)
-        : [...prev, itemId]
+    const updatedSelectedItems = selectedItems.includes(itemId)
+      ? selectedItems.filter((id) => id !== itemId)
+      : [...selectedItems, itemId];
+
+    setSelectedItems(updatedSelectedItems);
+
+    // Atualiza a lista no localStorage
+    const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
+
+    const novaLista = {
+      ...list,
+      items: mockItems, // Aqui você pode salvar os itens com a info dos selecionados se quiser
+      itensCount: updatedSelectedItems.length, // Aqui atualiza a contagem de itens
+    };
+
+    const listasAtualizadas = listasSalvas.map((l) =>
+      l.id === list.id ? novaLista : l
     );
+
+    localStorage.setItem("listas", JSON.stringify(listasAtualizadas));
   };
+
 
   return (
     <main className="p-4">

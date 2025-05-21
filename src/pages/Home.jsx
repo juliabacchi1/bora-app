@@ -5,11 +5,7 @@ import ListCard from "../components/ListCard";
 import { recommendedLists } from "../data/recommendedLists";
 import RecommendationsCarousel from "../components/RecommendationsCarousel";
 
-import {
-  PlusCircleSolid,
-  MoreHorizCircle,
-  BellNotificationSolid,
-} from "iconoir-react";
+import { PlusCircleSolid } from "iconoir-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,41 +14,37 @@ const Home = () => {
   const urubici = recommendedLists.find((item) => item.id === "urubici");
 
   // Estado inicial com Urubici
-const [listas, setListas] = useState(() => {
-  const saved = localStorage.getItem("listas");
-  return saved
-    ? JSON.parse(saved)
-    : [
-        {
-          id: "urubici",
-          title: urubici.title,
-          itensCount: urubici.items.length,
-          items: urubici.items,
-        },
-      ];
-});
+  const [listas, setListas] = useState(() => {
+    const saved = localStorage.getItem("listas");
+    return saved
+      ? JSON.parse(saved)
+      : [
+          {
+            id: "urubici",
+            title: urubici.title,
+            itensCount: urubici.items.length,
+            items: urubici.items,
+          },
+        ];
+  });
 
-const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-const handleDeleteLista = (id) => {
-  const updatedListas = listas.filter((lista) => lista.id !== id);
-  setListas(updatedListas);
-  localStorage.setItem("listas", JSON.stringify(updatedListas));
-};
+  const handleDeleteLista = (id) => {
+    const updatedListas = listas.filter((lista) => lista.id !== id);
+    setListas(updatedListas);
+    localStorage.setItem("listas", JSON.stringify(updatedListas));
+  };
 
   useEffect(() => {
     localStorage.setItem("listas", JSON.stringify(listas));
   }, [listas]);
 
-
   return (
     <main className="p-4">
       <div className="flex justify-between items-center my-3">
         <h1 className="text-2xl font-bold">Bora!</h1>
-        <button
-          onClick={() => setIsEditing((prev) => !prev)}
-          className="p-2"
-        >
+        <button onClick={() => setIsEditing((prev) => !prev)} className="p-2">
           {isEditing ? "Ok" : "Editar"}
         </button>
       </div>
@@ -63,7 +55,11 @@ const handleDeleteLista = (id) => {
         <ListCard
           key={lista.id}
           title={lista.title}
-          itensCount={lista.itens?.length || 0}
+          itensCount={
+            lista.itensCount ??
+            lista.items?.filter((item) => item.selected).length ??
+            0
+          }
           onClick={() => !isEditing && navigate(`/lista/${lista.id}`)}
           isEditing={isEditing}
           onDelete={() => handleDeleteLista(lista.id)}
@@ -94,7 +90,7 @@ const handleDeleteLista = (id) => {
       </button>
 
       {/* recomendação de listas */}
-      <h2 className="text-lg font-semibold mt-6 mb-2">
+      <h2 className="text-lg font-semibold px-1 mt-6 mb-2">
         Recomendações de listas
       </h2>
       <RecommendationsCarousel
