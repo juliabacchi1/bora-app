@@ -14,7 +14,7 @@ const ItemCard = ({ item, toggleItem }) => {
         </span>
       )}
 
-      <span className="text-base">{item.name}</span>
+      <span className="text-base text-center">{item.name}</span>
     </div>
   );
 };

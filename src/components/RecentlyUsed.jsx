@@ -32,7 +32,7 @@ const RecentlyUsed = ({ items, isOpen, toggleOpen, toggleItem }) => {
                 </span>
               )}
 
-              <span>{item.name}</span>
+              <span className="text-base text-center">{item.name}</span>
             </div>
           ))}
         </div>
