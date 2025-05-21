@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useListaById } from "../hooks/useListaById";
 import RecentlyUsed from "../components/RecentlyUsed";
@@ -15,23 +15,24 @@ const ListDetails = () => {
   const { id } = useParams(); // recebe da URL
   const navigate = useNavigate();
   const { list, listId, listName } = useListaById(id);
+  const [localList, setLocalList] = useState(list);
 
-  const [selectedItems, setSelectedItems] = useState([]);
+
   const [openCategories, setOpenCategories] = useState(false);
   const [openUsedRecently, setOpenUsedRecently] = useState(false);
 
   // Todas categorias únicas
-  const categoriasDaLista = list?.items
-    ? [...new Set(list.items.map((item) => item.category))]
+  const categoriasDaLista = localList?.items
+    ? [...new Set(localList.items.map((item) => item.category))]
     : [];
 
-  const itemsToTake = list?.items?.filter((item) => item.selected) || [];
+  const itemsToTake = localList?.items?.filter((item) => item.selected) || [];
 
-  // Itens usados recentemente (aqui só peguei os primeiros 6, pode mudar a lógica)
   const usedRecently =
-    list?.items
+    localList?.items
       ?.slice(0, 6)
       .map((item) => ({ ...item, checked: item.selected })) || [];
+
 
   // Funções toggles
   const toggleCategory = (category) => {
@@ -41,38 +42,42 @@ const ListDetails = () => {
     }));
   };
 
-  const toggleItemSelection = (itemId) => {
-    const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
+  useEffect(() => {
+    if (list) {
+      setLocalList(list);
+    }
+  }, [list]);
 
-    const listaAtual = listasSalvas.find((l) => l.id === list.id);
 
-    if (!listaAtual) return;
+const toggleItemSelection = (itemId) => {
+  const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
 
-    // Atualiza o estado do item selecionado
-    const itemsAtualizados = listaAtual.items.map((item) =>
-      item.id === itemId ? { ...item, selected: !item.selected } : item
-    );
+  const listaAtual = listasSalvas.find((l) => l.id === list.id);
 
-    // Atualiza o estado local (usado nos visuais)
-    const novosSelecionados = itemsAtualizados
-      .filter((item) => item.selected)
-      .map((item) => item.id);
+  if (!listaAtual) return;
 
-    setSelectedItems(novosSelecionados);
+  // Atualiza o estado do item selecionado
+  const itemsAtualizados = listaAtual.items.map((item) =>
+    item.id === itemId ? { ...item, selected: !item.selected } : item
+  );
 
-    // Atualiza a lista com novos itens e nova contagem
-    const novaLista = {
-      ...listaAtual,
-      items: itemsAtualizados,
-      itensCount: novosSelecionados.length,
-    };
+  const selecionados = itemsAtualizados.filter((item) => item.selected);
 
-    const listasAtualizadas = listasSalvas.map((l) =>
-      l.id === listaAtual.id ? novaLista : l
-    );
-
-    localStorage.setItem("listas", JSON.stringify(listasAtualizadas));
+  const novaLista = {
+    ...listaAtual,
+    items: itemsAtualizados,
+    itensCount: selecionados.length,
   };
+
+  // Atualiza localStorage
+  const listasAtualizadas = listasSalvas.map((l) =>
+    l.id === listaAtual.id ? novaLista : l
+  );
+  localStorage.setItem("listas", JSON.stringify(listasAtualizadas));
+
+  // Atualiza o estado local da lista no componente
+  setLocalList(novaLista);
+};
 
   return (
     <main className="p-4">
