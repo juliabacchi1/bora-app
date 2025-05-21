@@ -32,6 +32,13 @@ const [listas, setListas] = useState(() => {
       ];
 });
 
+const [isEditing, setIsEditing] = useState(false);
+
+const handleDeleteLista = (id) => {
+  const updatedListas = listas.filter((lista) => lista.id !== id);
+  setListas(updatedListas);
+  localStorage.setItem("listas", JSON.stringify(updatedListas));
+};
 
   useEffect(() => {
     localStorage.setItem("listas", JSON.stringify(listas));
@@ -40,23 +47,26 @@ const [listas, setListas] = useState(() => {
 
   return (
     <main className="p-4">
-      <div className="flex justify-between items-center my-4">
+      <div className="flex justify-between items-center my-3">
         <h1 className="text-2xl font-bold">Bora!</h1>
-        <div className="flex items-center gap-2">
-          <BellNotificationSolid width={20} height={20} />
-          <MoreHorizCircle width={20} height={20} />
-        </div>
+        <button
+          onClick={() => setIsEditing((prev) => !prev)}
+          className="p-2"
+        >
+          {isEditing ? "Ok" : "Editar"}
+        </button>
       </div>
-      <h2 className="text-lg font-semibold mb-2">Minhas listas</h2>
+      <h2 className="text-lg text-center font-semibold mb-3">Minhas listas</h2>
 
       {/* renderiza as listas dinâmicas */}
       {listas.map((lista) => (
         <ListCard
           key={lista.id}
-          id={lista.id}
           title={lista.title}
-          itensCount={lista.itensCount}
-          onClick={() => navigate(`/lista/${lista.id}`)}
+          itensCount={lista.itens?.length || 0}
+          onClick={() => !isEditing && navigate(`/lista/${lista.id}`)}
+          isEditing={isEditing}
+          onDelete={() => handleDeleteLista(lista.id)}
         />
       ))}
 

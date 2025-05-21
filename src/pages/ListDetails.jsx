@@ -54,7 +54,7 @@ const ListDetails = () => {
   return (
     <main className="p-4">
       {/* Header */}
-      <div className="flex justify-between items-center my-4">
+      <div className="flex justify-between items-center my-3">
         <button
           onClick={() => navigate("/")}
           className="bg-white text-[#415582] font-semibold rounded-full py-2 px-4 flex items-center justify-center gap-2"
