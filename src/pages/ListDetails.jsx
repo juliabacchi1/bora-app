@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useListaById } from "../hooks/useListaById";
 import RecentlyUsed from "../components/RecentlyUsed";
 import CategorySection from "../components/CategorySection";
-import { mockItems } from "../data/mockItems";
 
 import {
   ArrowLeftCircle,
@@ -22,18 +21,17 @@ const ListDetails = () => {
   const [openUsedRecently, setOpenUsedRecently] = useState(false);
 
   // Todas categorias únicas
-  const categories = [...new Set(mockItems.map((item) => item.category))];
+  const categoriasDaLista = list?.items
+    ? [...new Set(list.items.map((item) => item.category))]
+    : [];
 
-  // Itens selecionados para levar
-  const itemsToTake = mockItems.filter((item) =>
-    selectedItems.includes(item.id)
-  );
+  const itemsToTake = list?.items?.filter((item) => item.selected) || [];
 
   // Itens usados recentemente (aqui só peguei os primeiros 6, pode mudar a lógica)
-  const usedRecently = mockItems.slice(0, 6).map((item) => ({
-    ...item,
-    checked: selectedItems.includes(item.id),
-  }));
+  const usedRecently =
+    list?.items
+      ?.slice(0, 6)
+      .map((item) => ({ ...item, checked: item.selected })) || [];
 
   // Funções toggles
   const toggleCategory = (category) => {
@@ -44,28 +42,37 @@ const ListDetails = () => {
   };
 
   const toggleItemSelection = (itemId) => {
-    const updatedSelectedItems = selectedItems.includes(itemId)
-      ? selectedItems.filter((id) => id !== itemId)
-      : [...selectedItems, itemId];
-
-    setSelectedItems(updatedSelectedItems);
-
-    // Atualiza a lista no localStorage
     const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
 
+    const listaAtual = listasSalvas.find((l) => l.id === list.id);
+
+    if (!listaAtual) return;
+
+    // Atualiza o estado do item selecionado
+    const itemsAtualizados = listaAtual.items.map((item) =>
+      item.id === itemId ? { ...item, selected: !item.selected } : item
+    );
+
+    // Atualiza o estado local (usado nos visuais)
+    const novosSelecionados = itemsAtualizados
+      .filter((item) => item.selected)
+      .map((item) => item.id);
+
+    setSelectedItems(novosSelecionados);
+
+    // Atualiza a lista com novos itens e nova contagem
     const novaLista = {
-      ...list,
-      items: mockItems, // Aqui você pode salvar os itens com a info dos selecionados se quiser
-      itensCount: updatedSelectedItems.length, // Aqui atualiza a contagem de itens
+      ...listaAtual,
+      items: itemsAtualizados,
+      itensCount: novosSelecionados.length,
     };
 
     const listasAtualizadas = listasSalvas.map((l) =>
-      l.id === list.id ? novaLista : l
+      l.id === listaAtual.id ? novaLista : l
     );
 
     localStorage.setItem("listas", JSON.stringify(listasAtualizadas));
   };
-
 
   return (
     <main className="p-4">
@@ -137,13 +144,14 @@ const ListDetails = () => {
           />
 
           {/* Categorias */}
-          {categories.map((category) => {
-            const items = mockItems
-              .filter((item) => item.category === category)
-              .map((item) => ({
-                ...item,
-                checked: selectedItems.includes(item.id),
-              }));
+          {categoriasDaLista.map((category) => {
+            const items =
+              list?.items
+                ?.filter((item) => item.category === category)
+                .map((item) => ({
+                  ...item,
+                  checked: item.selected,
+                })) || [];
 
             return (
               <CategorySection
