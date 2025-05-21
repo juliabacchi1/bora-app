@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ListCard from "../components/ListCard";
+import { recommendedLists } from "../data/recommendedLists";
+import RecommendationsCarousel from "../components/RecommendationsCarousel";
 import { mockLists } from "../data/mockLists";
 
 import {
@@ -64,20 +66,7 @@ const Home = () => {
       <h2 className="text-lg font-semibold mt-6 mb-2">
         Recomendações de listas
       </h2>
-
-      <div className="grid grid-cols-3 gap-2">
-        {["Feriado", "Bate-volta", "Floripa"].map((item) => (
-          <div
-            key={item}
-            className="bg-white p-4 rounded-xl flex flex-col items-center"
-          >
-            <p className="text-sm font-semibold">{item}</p>
-            <div className="text-2xl text-[#415582] mt-14">
-              <PlusCircleSolid width={20} height={20} />
-            </div>
-          </div>
-        ))}
-      </div>
+      <RecommendationsCarousel lists={recommendedLists} />
     </main>
   );
 };
