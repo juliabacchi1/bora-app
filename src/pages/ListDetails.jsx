@@ -97,15 +97,14 @@ const ListDetails = () => {
                   <div
                     key={item.id}
                     onClick={() => toggleItemSelection(item.id)}
-                    className="flex items-center gap-2 p-3 rounded-lg cursor-pointer bg-[#e85252] text-white border border-red-600 select-none"
+                    className="flex flex-col items-center gap-2 p-3 rounded-lg cursor-pointer bg-[#e85252] text-white border border-red-600 select-none"
                   >
-                    {item.imageUrl && (
-                      <img
-                        src={item.imageUrl}
-                        alt={item.name}
-                        className="w-10 h-10 object-contain"
-                      />
+                    {item.icon && (
+                      <span className="w-10 h-10 flex items-center justify-center text-2xl">
+                        {item.icon}
+                      </span>
                     )}
+
                     <span className="text-base">{item.name}</span>
                   </div>
                 ))}

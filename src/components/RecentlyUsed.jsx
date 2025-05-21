@@ -20,19 +20,18 @@ const RecentlyUsed = ({ items, isOpen, toggleOpen, toggleItem }) => {
             <div
               key={item.id}
               onClick={() => toggleItem(item.id)}
-              className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all select-none ${
+              className={`flex flex-col items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all select-none ${
                 item.checked
                   ? "bg-[#e85252] border-red-600 text-white"
                   : "bg-[#aac8fa] border-transparent text-black"
               }`}
             >
-              {item.imageUrl && (
-                <img
-                  src={item.imageUrl}
-                  alt={item.name}
-                  className="w-10 h-10 object-contain"
-                />
+              {item.icon && (
+                <span className="w-10 h-10 flex items-center justify-center text-2xl">
+                  {item.icon}
+                </span>
               )}
+
               <span>{item.name}</span>
             </div>
           ))}
