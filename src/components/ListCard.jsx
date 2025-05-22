@@ -45,8 +45,11 @@ const ListCard = ({
           {itensCount} itens
         </span>
         <div className="flex gap-2 mt-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
+          <img
+            className="w-6 h-6 rounded-full"
+            src="/images/profile.png"
+            alt="Perfil"
+          />
           <div className="w-6 h-6 flex items-center justify-center text-white">
             <PlusCircle />
           </div>

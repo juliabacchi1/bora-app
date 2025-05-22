@@ -10,6 +10,7 @@ import {
   BellNotificationSolid,
   MoreHorizCircle,
   FilterListCircleSolid,
+  User,
 } from "iconoir-react";
 
 const ListDetails = () => {
@@ -87,8 +88,11 @@ const ListDetails = () => {
       <div className="flex justify-between items-center my-4">
         <h1 className="text-2xl font-bold">{listName}</h1>
         <div className="flex gap-2 mt-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-200 to-green-200" />
+          <img
+            className="w-6 h-6 rounded-full"
+            src="/images/profile.png"
+            alt="Perfil"
+          />
         </div>
       </div>
 
