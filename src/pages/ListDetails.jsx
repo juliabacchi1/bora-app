@@ -23,6 +23,7 @@ const ListDetails = () => {
   const [openUsedRecently, setOpenUsedRecently] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showRecommend, setShowRecommend] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Todas categorias únicas
   const categories = [...new Set(mockItems.map((item) => item.category))];
@@ -95,9 +96,22 @@ const ListDetails = () => {
         )}
 
         {showRecommend && (
-          <div className="absolute right-0 top-10 py-3 px-5 bg-white rounded-xl shadow-md opacity-90 text-sm z-10 flex items-center gap-2">
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText("https://bora-app-jet.vercel.app/");
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+            className="absolute right-0 top-10 py-3 px-5 bg-white rounded-xl shadow-md opacity-90 text-sm z-10 flex items-center gap-2 hover:bg-pink-50 active:scale-95 transition"
+          >
             <HeartSolid className="w-4 h-auto text-pink-500" />
             Recomendar a um amigo
+          </button>
+        )}
+
+        {copied && (
+          <div className="absolute right-0 top-28 bg-white text-xs rounded-md px-4 py-2 z-20 shadow-md animate-fadeIn">
+            Link copiado!
           </div>
         )}
       </div>
