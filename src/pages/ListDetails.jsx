@@ -10,7 +10,7 @@ import {
   BellNotificationSolid,
   MoreHorizCircle,
   FilterListCircleSolid,
-  User,
+  HeartSolid,
 } from "iconoir-react";
 
 const ListDetails = () => {
@@ -21,6 +21,8 @@ const ListDetails = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [openCategories, setOpenCategories] = useState(false);
   const [openUsedRecently, setOpenUsedRecently] = useState(true);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showRecommend, setShowRecommend] = useState(false);
 
   // Todas categorias únicas
   const categories = [...new Set(mockItems.map((item) => item.category))];
@@ -69,8 +71,7 @@ const ListDetails = () => {
 
   return (
     <main className="p-4">
-      {/* Header */}
-      <div className="flex justify-between items-center my-3">
+      <div className="flex relative justify-between items-center my-3">
         <button
           onClick={() => navigate("/")}
           className="bg-white text-[#415582] font-semibold rounded-full py-2 px-4 flex items-center justify-center gap-2"
@@ -78,10 +79,27 @@ const ListDetails = () => {
           <ArrowLeftCircle className="w-5 h-5" />
           Listas
         </button>
-        <div className="flex items-center gap-2">
-          <BellNotificationSolid width={20} height={20} />
-          <MoreHorizCircle width={20} height={20} />
+        <div className="flex relative items-center gap-2">
+          <button onClick={() => setShowNotifications((prev) => !prev)}>
+            <BellNotificationSolid width={20} height={20} />
+          </button>
+          <button onClick={() => setShowRecommend((prev) => !prev)}>
+            <MoreHorizCircle width={20} height={20} />
+          </button>
         </div>
+
+        {showNotifications && (
+          <div className="absolute right-6 mt-24 py-3 px-7 bg-white rounded-xl shadow-md opacity-80 text-sm z-10">
+            Sem notificações
+          </div>
+        )}
+
+        {showRecommend && (
+          <div className="absolute right-0 top-10 py-3 px-5 bg-white rounded-xl shadow-md opacity-90 text-sm z-10 flex items-center gap-2">
+            <HeartSolid className="w-4 h-auto text-pink-500" />
+            Recomendar a um amigo
+          </div>
+        )}
       </div>
 
       {/* Nome da lista */}
