@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { PlusCircleSolid } from "iconoir-react";
 
 const RecommendationsCarousel = ({ lists, listas, setListas }) => {
-  const [startIndex] = useState(0);
-  const visibleLists = lists.slice(startIndex, startIndex + 3);
+  // Sorteia um índice inicial aleatório a cada montagem
+  const [startIndex] = useState(() => {
+    const maxStart = Math.max(0, lists.length - 3);
+    return Math.floor(Math.random() * (maxStart + 1));
+  });
+
+  // Garante que só pega 3 recomendações a partir do índice sorteado
+  const visibleLists = useMemo(() => {
+    return lists.slice(startIndex, startIndex + 3);
+  }, [lists, startIndex]);
 
   const handleAddRecommended = (item) => {
     const novaLista = {
@@ -13,16 +21,13 @@ const RecommendationsCarousel = ({ lists, listas, setListas }) => {
       items: item.items,
       itensCount: item.items.length,
     };
-    console.log("🔔 Adicionando lista recomendada:", novaLista);
 
     setListas((prev) => {
       const atualizadas = [...prev, novaLista];
-      console.log("🔔 Listas atualizadas:", atualizadas);
       localStorage.setItem("listas", JSON.stringify(atualizadas));
       return atualizadas;
     });
   };
-
 
   return (
     <div className="grid grid-cols-3 gap-2">
