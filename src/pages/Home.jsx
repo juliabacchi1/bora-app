@@ -49,7 +49,11 @@ const Home = () => {
   return (
     <main className="p-4">
       <div className="flex justify-between items-center my-3">
-        <h1 className="text-2xl font-bold">Bora!</h1>
+        <img
+          src="/logo.png"
+          alt="Logo Bora!"
+          className="h-12 px-4 scale-150 -translate-y-1 object-contain"
+        />
         <button onClick={() => setIsEditing((prev) => !prev)} className="p-2">
           {isEditing ? "Ok" : "Editar"}
         </button>

@@ -42,7 +42,7 @@ const RecommendationsCarousel = ({ lists, listas, setListas }) => {
             className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all"
           />
           <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col justify-between p-3">
-            <p className="text-white text-sm font-semibold">{item.title}</p>
+            <p className="text-white text-md font-semibold">{item.title}</p>
             <button
               onClick={() => handleAddRecommended(item)}
               className="self-center bg-opacity-80 p-1 rounded-full hover:bg-opacity-100 transition"

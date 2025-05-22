@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#ffffff] flex justify-center">
-      <div className="w-[390px] bg-[#e4e0df] min-h-screen shadow-xl">
+      <div className="w-[390px] bg-[#e8e6e5] min-h-screen shadow-xl">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/lista/:id" element={<ListDetails />} />
