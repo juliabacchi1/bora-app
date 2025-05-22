@@ -31,17 +31,20 @@ const Home = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDeleteLista = (id) => {
-    console.log("🗑️ Tentando deletar lista com ID:", id);
-    console.log("📋 Listas atuais:", listas);
-
     const updatedListas = listas.filter((lista) => lista.id !== id);
-
-    console.log("✅ Listas depois da exclusão:", updatedListas);
-
     setListas(updatedListas);
     localStorage.setItem("listas", JSON.stringify(updatedListas));
   };
 
+  // ✅ Recarrega do localStorage ao montar o componente
+  useEffect(() => {
+    const saved = localStorage.getItem("listas");
+    if (saved) {
+      setListas(JSON.parse(saved));
+    }
+  }, []);
+
+  // Salva sempre que mudar
   useEffect(() => {
     localStorage.setItem("listas", JSON.stringify(listas));
   }, [listas]);

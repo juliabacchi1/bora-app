@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useListaById } from "../hooks/useListaById";
 import RecentlyUsed from "../components/RecentlyUsed";
@@ -24,6 +24,19 @@ const ListDetails = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showRecommend, setShowRecommend] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
+    const listaAtual = listasSalvas.find((l) => l.id === list?.id);
+
+    if (listaAtual) {
+      const itensMarcados = listaAtual.items
+        .filter((item) => item.selected)
+        .map((item) => item.id);
+      setSelectedItems(itensMarcados);
+    }
+  }, [list?.id]);
+
 
   // Todas categorias únicas
   const categories = [...new Set(mockItems.map((item) => item.category))];
