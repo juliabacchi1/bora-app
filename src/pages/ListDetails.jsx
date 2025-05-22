@@ -59,7 +59,10 @@ const ListDetails = () => {
 
     const novaLista = {
       ...list,
-      items: mockItems, // Aqui você pode salvar os itens com a info dos selecionados se quiser
+      items: mockItems.map((item) => ({
+        ...item,
+        selected: updatedSelectedItems.includes(item.id),
+      })),
       itensCount: updatedSelectedItems.length, // Aqui atualiza a contagem de itens
     };
 
