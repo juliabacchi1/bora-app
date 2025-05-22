@@ -2,18 +2,27 @@ import React, { useState } from "react";
 import { PlusCircleSolid } from "iconoir-react";
 
 const RecommendationsCarousel = ({ lists, listas, setListas }) => {
-  const [startIndex] = useState(0); // mantém fixo, não precisamos mais rotacionar
+  const [startIndex] = useState(0);
   const visibleLists = lists.slice(startIndex, startIndex + 3);
 
   const handleAddRecommended = (item) => {
     const novaLista = {
       id: Date.now().toString(),
       title: item.title,
-      itensCount: item.items.length,
+      image: item.image,
       items: item.items,
+      itensCount: item.items.length,
     };
-    setListas([...listas, novaLista]);
+    console.log("🔔 Adicionando lista recomendada:", novaLista);
+
+    setListas((prev) => {
+      const atualizadas = [...prev, novaLista];
+      console.log("🔔 Listas atualizadas:", atualizadas);
+      localStorage.setItem("listas", JSON.stringify(atualizadas));
+      return atualizadas;
+    });
   };
+
 
   return (
     <div className="grid grid-cols-3 gap-2">

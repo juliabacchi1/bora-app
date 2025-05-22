@@ -13,7 +13,7 @@ import {
 } from "iconoir-react";
 
 const ListDetails = () => {
-  const { id } = useParams(); // recebe da URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const { list, listId, listName } = useListaById(id);
 
@@ -74,9 +74,7 @@ const ListDetails = () => {
           onClick={() => navigate("/")}
           className="bg-white text-[#415582] font-semibold rounded-full py-2 px-4 flex items-center justify-center gap-2"
         >
-          <span className="text-xl">
-            <ArrowLeftCircle className="w-5 h-5" />
-          </span>{" "}
+          <ArrowLeftCircle className="w-5 h-5" />
           Listas
         </button>
         <div className="flex items-center gap-2">
@@ -119,7 +117,6 @@ const ListDetails = () => {
                         {item.icon}
                       </span>
                     )}
-
                     <span className="text-base text-center">{item.name}</span>
                   </div>
                 ))}

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import ListCard from "../components/ListCard";
 import { recommendedLists } from "../data/recommendedLists";
+
 import RecommendationsCarousel from "../components/RecommendationsCarousel";
 
 import { PlusCircleSolid } from "iconoir-react";
@@ -10,10 +11,8 @@ import { PlusCircleSolid } from "iconoir-react";
 const Home = () => {
   const navigate = useNavigate();
 
-  // Pegando Urubici da recomendação
   const urubici = recommendedLists.find((item) => item.id === "urubici");
 
-  // Estado inicial com Urubici
   const [listas, setListas] = useState(() => {
     const saved = localStorage.getItem("listas");
     return saved
@@ -22,6 +21,7 @@ const Home = () => {
           {
             id: "urubici",
             title: urubici.title,
+            image: urubici.image,
             itensCount: urubici.items.length,
             items: urubici.items,
           },
@@ -31,7 +31,13 @@ const Home = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDeleteLista = (id) => {
+    console.log("🗑️ Tentando deletar lista com ID:", id);
+    console.log("📋 Listas atuais:", listas);
+
     const updatedListas = listas.filter((lista) => lista.id !== id);
+
+    console.log("✅ Listas depois da exclusão:", updatedListas);
+
     setListas(updatedListas);
     localStorage.setItem("listas", JSON.stringify(updatedListas));
   };
@@ -55,6 +61,7 @@ const Home = () => {
         <ListCard
           key={lista.id}
           title={lista.title}
+          // calcula na hora quantos itens estão selecionados
           itensCount={
             lista.itensCount ??
             lista.items?.filter((item) => item.selected).length ??
@@ -63,6 +70,7 @@ const Home = () => {
           onClick={() => !isEditing && navigate(`/lista/${lista.id}`)}
           isEditing={isEditing}
           onDelete={() => handleDeleteLista(lista.id)}
+          image={lista.image}
         />
       ))}
 
@@ -72,6 +80,7 @@ const Home = () => {
           const novaLista = {
             id: Date.now().toString(),
             title: "Nova Lista",
+            image: "/images/padrao.png",
             itensCount: 0,
             items: [],
           };
