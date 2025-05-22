@@ -26,20 +26,20 @@ export const recommendedLists = [
   {
     id: "netflix",
     title: "Netflix em companhia",
-    image: "/images/netflix.jpg",
+    image: "/images/netflix.png",
     items: ["Manta", "Vinho", "Pantufas"],
   },
   {
     id: "namorados",
     title: "Finde dos namorados",
-    image: "/images/namorados.jpg",
+    image: "/images/namorados.png",
     items: ["Salto alto", "Vestido", "Maquiagem"],
   },
   {
-    id: "serra-trip",
-    title: "Curtindo a Serra",
-    image: "/images/serra.jpg",
-    items: ["Casaco", "Botas", "Chocolate quente"],
+    id: "neve",
+    title: "Vamos pra neve",
+    image: "/images/neve.png",
+    items: ["Casaco", "Cachecol", "Calça"],
   },
   {
     id: "serra-trip",

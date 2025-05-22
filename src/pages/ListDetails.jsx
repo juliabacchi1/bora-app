@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useListaById } from "../hooks/useListaById";
 import RecentlyUsed from "../components/RecentlyUsed";
 import CategorySection from "../components/CategorySection";
+import { mockItems } from "../data/mockItems";
 
 import {
   ArrowLeftCircle,
@@ -15,24 +16,24 @@ const ListDetails = () => {
   const { id } = useParams(); // recebe da URL
   const navigate = useNavigate();
   const { list, listId, listName } = useListaById(id);
-  const [localList, setLocalList] = useState(list);
 
-
+  const [selectedItems, setSelectedItems] = useState([]);
   const [openCategories, setOpenCategories] = useState(false);
   const [openUsedRecently, setOpenUsedRecently] = useState(false);
 
   // Todas categorias únicas
-  const categoriasDaLista = localList?.items
-    ? [...new Set(localList.items.map((item) => item.category))]
-    : [];
+  const categories = [...new Set(mockItems.map((item) => item.category))];
 
-  const itemsToTake = localList?.items?.filter((item) => item.selected) || [];
+  // Itens selecionados para levar
+  const itemsToTake = mockItems.filter((item) =>
+    selectedItems.includes(item.id)
+  );
 
-  const usedRecently =
-    localList?.items
-      ?.slice(0, 6)
-      .map((item) => ({ ...item, checked: item.selected })) || [];
-
+  // Itens usados recentemente (aqui só peguei os primeiros 6, pode mudar a lógica)
+  const usedRecently = mockItems.slice(0, 6).map((item) => ({
+    ...item,
+    checked: selectedItems.includes(item.id),
+  }));
 
   // Funções toggles
   const toggleCategory = (category) => {
@@ -42,42 +43,28 @@ const ListDetails = () => {
     }));
   };
 
-  useEffect(() => {
-    if (list) {
-      setLocalList(list);
-    }
-  }, [list]);
+  const toggleItemSelection = (itemId) => {
+    const updatedSelectedItems = selectedItems.includes(itemId)
+      ? selectedItems.filter((id) => id !== itemId)
+      : [...selectedItems, itemId];
 
+    setSelectedItems(updatedSelectedItems);
 
-const toggleItemSelection = (itemId) => {
-  const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
+    // Atualiza a lista no localStorage
+    const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
 
-  const listaAtual = listasSalvas.find((l) => l.id === list.id);
+    const novaLista = {
+      ...list,
+      items: mockItems, // Aqui você pode salvar os itens com a info dos selecionados se quiser
+      itensCount: updatedSelectedItems.length, // Aqui atualiza a contagem de itens
+    };
 
-  if (!listaAtual) return;
+    const listasAtualizadas = listasSalvas.map((l) =>
+      l.id === list.id ? novaLista : l
+    );
 
-  // Atualiza o estado do item selecionado
-  const itemsAtualizados = listaAtual.items.map((item) =>
-    item.id === itemId ? { ...item, selected: !item.selected } : item
-  );
-
-  const selecionados = itemsAtualizados.filter((item) => item.selected);
-
-  const novaLista = {
-    ...listaAtual,
-    items: itemsAtualizados,
-    itensCount: selecionados.length,
+    localStorage.setItem("listas", JSON.stringify(listasAtualizadas));
   };
-
-  // Atualiza localStorage
-  const listasAtualizadas = listasSalvas.map((l) =>
-    l.id === listaAtual.id ? novaLista : l
-  );
-  localStorage.setItem("listas", JSON.stringify(listasAtualizadas));
-
-  // Atualiza o estado local da lista no componente
-  setLocalList(novaLista);
-};
 
   return (
     <main className="p-4">
@@ -149,14 +136,13 @@ const toggleItemSelection = (itemId) => {
           />
 
           {/* Categorias */}
-          {categoriasDaLista.map((category) => {
-            const items =
-              list?.items
-                ?.filter((item) => item.category === category)
-                .map((item) => ({
-                  ...item,
-                  checked: item.selected,
-                })) || [];
+          {categories.map((category) => {
+            const items = mockItems
+              .filter((item) => item.category === category)
+              .map((item) => ({
+                ...item,
+                checked: selectedItems.includes(item.id),
+              }));
 
             return (
               <CategorySection
