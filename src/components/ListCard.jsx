@@ -8,13 +8,14 @@ const ListCard = ({
   isEditing,
   onDelete,
   image,
+  isFirst,
 }) => {
   return (
     <div
       onClick={onClick}
-      className={`relative p-4 rounded-xl shadow-sm border-2 border-[#415582] mb-4 cursor-pointer transition-opacity duration-300 group ${
+      className={`relative p-4 rounded-xl shadow-sm mb-4 cursor-pointer transition-opacity duration-300 group ${
         isEditing ? "opacity-60" : "opacity-100"
-      }`}
+      } ${isFirst && "border-2 border-[#415582]"}`}
       style={{
         backgroundColor: image ? "transparent" : "#fff",
         backgroundImage: image ? `url(${image})` : "none",

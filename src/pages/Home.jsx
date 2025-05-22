@@ -57,10 +57,11 @@ const Home = () => {
       <h2 className="text-lg text-center font-semibold mb-3">Minhas listas</h2>
 
       {/* renderiza as listas dinâmicas */}
-      {listas.map((lista) => (
+      {listas.map((lista, index) => (
         <ListCard
           key={lista.id}
           title={lista.title}
+          image={lista.image}
           // calcula na hora quantos itens estão selecionados
           itensCount={
             lista.itensCount ??
@@ -70,7 +71,7 @@ const Home = () => {
           onClick={() => !isEditing && navigate(`/lista/${lista.id}`)}
           isEditing={isEditing}
           onDelete={() => handleDeleteLista(lista.id)}
-          image={lista.image}
+          isFirst={index === 0}
         />
       ))}
 
