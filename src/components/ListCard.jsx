@@ -15,7 +15,7 @@ const ListCard = ({
       onClick={onClick}
       className={`relative p-4 rounded-xl shadow-sm mb-4 cursor-pointer transition-opacity duration-300 group ${
         isEditing ? "opacity-60" : "opacity-100"
-      } ${isFirst && "border-2 border-[#415582]"}`}
+      } ${isFirst && "border-2 border-[white]"}`}
       style={{
         backgroundColor: image ? "transparent" : "#fff",
         backgroundImage: image ? `url(${image})` : "none",
@@ -36,7 +36,7 @@ const ListCard = ({
             }}
             className="absolute top-2 right-2 text-red-500 hover:text-red-700"
           >
-            <Trash />
+            <Trash strokeWidth={2.5} />
           </button>
         )}
 

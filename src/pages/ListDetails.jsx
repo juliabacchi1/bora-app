@@ -87,7 +87,7 @@ const ListDetails = () => {
       {/* Nome da lista */}
       <div className="flex justify-between items-center my-4">
         <h1 className="text-2xl font-bold">{listName}</h1>
-        <div className="flex gap-2 mt-2">
+        <div className="flex">
           <img
             className="w-6 h-6 rounded-full"
             src="/images/profile.png"
