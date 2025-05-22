@@ -19,7 +19,7 @@ const ListDetails = () => {
 
   const [selectedItems, setSelectedItems] = useState([]);
   const [openCategories, setOpenCategories] = useState(false);
-  const [openUsedRecently, setOpenUsedRecently] = useState(false);
+  const [openUsedRecently, setOpenUsedRecently] = useState(true);
 
   // Todas categorias únicas
   const categories = [...new Set(mockItems.map((item) => item.category))];

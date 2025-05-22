@@ -88,7 +88,6 @@ const Home = () => {
           localStorage.setItem("listas", JSON.stringify(novasListas)); // 🔴 salva todas
           localStorage.setItem("selectedList", JSON.stringify(novaLista)); // opcional
           setListas(novasListas);
-          navigate(`/lista/${novaLista.id}`);
         }}
         className="w-full bg-white text-[#415582] font-semibold py-2 px-4 rounded-xl border mt-4 flex items-center justify-center gap-2"
       >
