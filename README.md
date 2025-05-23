@@ -70,18 +70,18 @@ src/
 
 ## 🧩 Em desenvolvimento
 
-🔐 Implementar sistema de login e autenticação
-🌐 Adaptar o roteamento com URLs mais amigáveis (ex: /listas/ferias)
-☁️ Integração com backend para salvar dados em nuvem
-📱 Publicação em app stores (com PWA)
-💬 Adicionar suporte a múltiplos idiomas
+- 🔐 Implementar sistema de login e autenticação
+- 🌐 Adaptar o roteamento com URLs mais amigáveis (ex: /listas/ferias)
+- ☁️ Integração com backend para salvar dados em nuvem
+- 📱 Publicação em app stores (com PWA)
+- 💬 Adicionar suporte a múltiplos idiomas
 
 ## 💡 Inspiração
 O Bora! se inspira em apps como Bring! e Notion, combinando a estética clean com funcionalidade inteligente. A ideia é transformar o planejamento de viagens em uma experiência leve e prazerosa.
 
 ## 🙋‍♀️ Feito por
 Julia Bacchi – desenvolvedora front-end apaixonada por inovação, sustentabilidade e boas ideias.
-[LinkedIn] (https://www.linkedin.com/in/juliabacchi/) | [Portfólio](https://juliadev.vercel.app/)
+[LinkedIn](https://www.linkedin.com/in/juliabacchi/) | [Portfólio](https://juliadev.vercel.app/)
 
 ## 🪄 Contribuições
 Quer contribuir com o projeto? Crie um fork, abra uma issue ou envie um pull request. Toda ajuda é bem-vinda! 💛
