@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import ListCard from "../components/ListCard";
 import { recommendedLists } from "../data/recommendedLists";
-
 import RecommendationsCarousel from "../components/RecommendationsCarousel";
 
 import { PlusCircleSolid } from "iconoir-react";
@@ -36,7 +35,7 @@ const Home = () => {
     localStorage.setItem("listas", JSON.stringify(updatedListas));
   };
 
-  // ✅ Recarrega do localStorage ao montar o componente
+  // Recarrega do localStorage ao montar o componente
   useEffect(() => {
     const saved = localStorage.getItem("listas");
     if (saved) {
@@ -82,7 +81,7 @@ const Home = () => {
         />
       ))}
 
-      {/* criar nova lista */}
+      {/* cria nova lista */}
       <button
         onClick={() => {
           const novaLista = {
@@ -93,8 +92,8 @@ const Home = () => {
             items: [],
           };
           const novasListas = [...listas, novaLista];
-          localStorage.setItem("listas", JSON.stringify(novasListas)); // 🔴 salva todas
-          localStorage.setItem("selectedList", JSON.stringify(novaLista)); // opcional
+          localStorage.setItem("listas", JSON.stringify(novasListas)); // salva todas
+          localStorage.setItem("selectedList", JSON.stringify(novaLista));
           setListas(novasListas);
         }}
         className="w-full bg-white text-[#415582] font-semibold py-2 px-4 rounded-xl border mt-4 flex items-center justify-center gap-2"

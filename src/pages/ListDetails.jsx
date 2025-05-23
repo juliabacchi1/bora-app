@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import { useListaById } from "../hooks/useListaById";
 import RecentlyUsed from "../components/RecentlyUsed";
 import CategorySection from "../components/CategorySection";
@@ -37,21 +38,16 @@ const ListDetails = () => {
     }
   }, [list?.id]);
 
-  // Todas categorias únicas
   const categories = [...new Set(mockItems.map((item) => item.category))];
 
-  // Itens selecionados para levar
   const itemsToTake = mockItems.filter((item) =>
     selectedItems.includes(item.id)
   );
 
-  // Itens usados recentemente (aqui só peguei os primeiros 6, pode mudar a lógica)
   const usedRecently = mockItems.slice(0, 6).map((item) => ({
     ...item,
     checked: selectedItems.includes(item.id),
   }));
-
-  // Funções toggles
   const toggleCategory = (category) => {
     setOpenCategories((prev) => ({
       ...prev,
@@ -75,7 +71,7 @@ const ListDetails = () => {
         ...item,
         selected: updatedSelectedItems.includes(item.id),
       })),
-      itensCount: updatedSelectedItems.length, // Aqui atualiza a contagem de itens
+      itensCount: updatedSelectedItems.length,
     };
 
     const listasAtualizadas = listasSalvas.map((l) =>
@@ -131,7 +127,6 @@ const ListDetails = () => {
         )}
       </div>
 
-      {/* Nome da lista */}
       <div className="flex justify-between items-center my-4">
         <h1 className="text-2xl font-bold">{listName}</h1>
         <div className="flex">

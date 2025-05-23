@@ -16,7 +16,6 @@ const ItemCard = ({ item, toggleItem }) => {
         />
       )}
 
-      {/* Nome */}
       <span className="text-base text-center">{item.name}</span>
     </div>
   );
