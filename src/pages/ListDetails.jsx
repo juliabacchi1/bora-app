@@ -37,7 +37,6 @@ const ListDetails = () => {
     }
   }, [list?.id]);
 
-
   // Todas categorias únicas
   const categories = [...new Set(mockItems.map((item) => item.category))];
 
@@ -165,10 +164,13 @@ const ListDetails = () => {
                     className="flex flex-col items-center gap-2 p-3 rounded-lg cursor-pointer bg-[#e85252] text-white border border-red-600 select-none"
                   >
                     {item.icon && (
-                      <span className="w-10 h-10 flex items-center justify-center text-2xl">
-                        {item.icon}
-                      </span>
+                      <img
+                        src={item.icon}
+                        alt={item.name}
+                        className="w-10 h-10 object-contain"
+                      />
                     )}
+
                     <span className="text-base text-center">{item.name}</span>
                   </div>
                 ))}

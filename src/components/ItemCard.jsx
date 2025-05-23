@@ -9,11 +9,14 @@ const ItemCard = ({ item, toggleItem }) => {
       }`}
     >
       {item.icon && (
-        <span className="w-10 h-10 flex items-center justify-center text-2xl">
-          {item.icon}
-        </span>
+        <img
+          src={item.icon}
+          alt={item.name}
+          className="w-10 h-10 object-contain"
+        />
       )}
 
+      {/* Nome */}
       <span className="text-base text-center">{item.name}</span>
     </div>
   );
