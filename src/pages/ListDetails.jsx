@@ -25,6 +25,7 @@ const ListDetails = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showRecommend, setShowRecommend] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [ordenarPorCategoria, setOrdenarPorCategoria] = useState(false);
 
   useEffect(() => {
     const listasSalvas = JSON.parse(localStorage.getItem("listas")) || [];
@@ -40,9 +41,15 @@ const ListDetails = () => {
 
   const categories = [...new Set(mockItems.map((item) => item.category))];
 
-  const itemsToTake = mockItems.filter((item) =>
+  let itemsToTake = mockItems.filter((item) =>
     selectedItems.includes(item.id)
   );
+
+  if (ordenarPorCategoria) {
+    itemsToTake = [...itemsToTake].sort((a, b) =>
+      a.category.localeCompare(b.category)
+    );
+  }
 
   const usedRecently = mockItems.slice(0, 6).map((item) => ({
     ...item,
@@ -144,7 +151,13 @@ const ListDetails = () => {
           <section className="mb-1">
             <div className="flex items-center justify-end gap-2 mb-2">
               <h2 className="text-lg font-semibold">Itens para levar</h2>
-              <FilterListCircleSolid width={20} height={20} />
+              <button
+                onClick={() => setOrdenarPorCategoria((prev) => !prev)}
+                className="hover:scale-110 transition"
+                title="Ordenar por categoria"
+              >
+                <FilterListCircleSolid width={20} height={20} />
+              </button>
             </div>
             {itemsToTake.length === 0 ? (
               <p className="italic text-gray-500 py-2">
