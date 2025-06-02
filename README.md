@@ -7,7 +7,7 @@
 [![Deploy](https://img.shields.io/badge/Deploy-Vercel-purple)](https://bora-app-jet.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-@juliabacchi1%2Fbora--app-black?logo=github)](https://github.com/juliabacchi1/bora-app)
 
-![Bora! Screenshot](./public/screenshot.png)
+![Bora! Screenshot](./public/screenshot.webp)
 
 ---
 
