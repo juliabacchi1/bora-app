@@ -81,7 +81,7 @@ O Bora! se inspira em apps como Bring! e Notion, combinando a estética clean co
 
 ## 🙋‍♀️ Feito por
 Julia Bacchi – desenvolvedora front-end apaixonada por inovação, sustentabilidade e boas ideias.
-[LinkedIn](https://www.linkedin.com/in/juliabacchi/) | [Portfólio](https://juliadev.vercel.app/)
+[LinkedIn](https://www.linkedin.com/in/juliabacchi/) | [Portfólio](https://juliabacchi.com)
 
 ## 🪄 Contribuições
 Quer contribuir com o projeto? Crie um fork, abra uma issue ou envie um pull request. Toda ajuda é bem-vinda! 💛
